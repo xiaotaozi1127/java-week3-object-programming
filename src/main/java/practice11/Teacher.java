@@ -1,9 +1,11 @@
 package practice11;
 
 import java.util.HashSet;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.stream.Collectors;
 
-public class Teacher extends Person {
+public class Teacher extends Person implements Observer {
     private HashSet<Klass> klasses = new HashSet<>();
 
     public Teacher(int id, String name, int age, HashSet<Klass> klasses) {
@@ -42,5 +44,10 @@ public class Teacher extends Person {
             return super.introduce() + String.format(" I am a Teacher. I teach %s.", student.getName());
         }
         return super.introduce() + String.format(" I am a Teacher. I don't teach %s.", student.getName());
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.println(String.format("I am %s.%s", this.getName(), arg.toString()));
     }
 }

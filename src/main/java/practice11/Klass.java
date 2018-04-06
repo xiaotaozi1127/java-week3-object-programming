@@ -2,8 +2,9 @@ package practice11;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
-public class Klass {
+public class Klass extends Observable {
     private int number;
     List<Student> students = new ArrayList<>();
     private Student leader;
@@ -23,6 +24,8 @@ public class Klass {
     public void assignLeader(Student student) {
         if(students.contains(student)){
             this.leader = student;
+            setChanged();
+            notifyObservers(String.format(" I know %s become Leader of %s.", student.getName(), getDisplayName()));
         }
         else{
             System.out.println("It is not one of us.");
@@ -35,5 +38,7 @@ public class Klass {
 
     public void appendMember(Student student) {
         students.add(student);
+        setChanged();
+        notifyObservers(String.format(" I know %s has joined %s.", student.getName(), getDisplayName()));
     }
 }
